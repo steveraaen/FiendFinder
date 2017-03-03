@@ -369,7 +369,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-
+    var ans;
     var userInfo = [];
     var scores = [];
     var questions = [
@@ -392,10 +392,12 @@ $(document).ready(function() {
     $('#sub').on('click', function() {
         var name = $('#name').val().trim();
         var photo = $('#photo').val().trim();
+
     function MakeAnswerObj(n ,p, s){
+
         this.name = name;
         this.photo = photo;
-        this.scores = scores;
+        this.scores = scores
     }
         var radios = $("input[type='radio']");
         var checked = radios.filter(':checked');
@@ -413,7 +415,14 @@ $(document).ready(function() {
               console.log(answerObj)  
             }   
             var currentURL = window.location.origin;
-        $.post(currentURL + "/api/fiends", answerObj, function(data){
+        /*$.post(currentURL + "/api/fiends", answerObj, function(data){*/
+            jQuery.ajaxSettings.traditional = true;
+            $.ajax({
+                type: "POST",
+                url: "/api/fiends",
+                data: answerObj
+            }).then(function(data){
+
             if (data == true){
                 alert('Form Posted');
             } if (data == false){
@@ -426,3 +435,32 @@ $(document).ready(function() {
 </script>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

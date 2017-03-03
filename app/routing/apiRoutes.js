@@ -12,4 +12,5 @@ module.exports = function(app){
 		fiendData.push(req.body);
 		res.json(true);
 	})
-}
+};
+console.log(fiendData)
