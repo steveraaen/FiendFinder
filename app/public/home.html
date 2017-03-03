@@ -408,14 +408,8 @@ $(document).ready(function() {
                 alert("You've got to fill out all of the fields")
             } else{
                 var answerObj = new MakeAnswerObj(name, photo, scores);
+            } 
 
-                console.log(name) 
-              console.log(photo)  
-              console.log(scores)  
-              console.log(answerObj)  
-            }   
-            var currentURL = window.location.origin;
-        /*$.post(currentURL + "/api/fiends", answerObj, function(data){*/
             jQuery.ajaxSettings.traditional = true;
             $.ajax({
                 type: "POST",
@@ -432,6 +426,7 @@ $(document).ready(function() {
         });        
     });
 });
+
 </script>
 
 </html>
