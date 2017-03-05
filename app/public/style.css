@@ -1,0 +1,38 @@
+.q {
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+.jumbo {
+    margin-top: 10vh;
+    margin-right: 10vw;
+    margin-left: 10vw;
+    height: 75vh;
+    background: #283048;
+    background: -webkit-linear-gradient(to left, #283048, #859398);
+    background: linear-gradient(to left, #283048, #859398);
+}
+image{
+	height: 25%;
+	width: 25%;
+}
+.pic{
+	margin-top: 30%;
+	margin-left: 10%;
+}
+.title{
+	font-family: 'Pangolin', cursive;
+	font-size: 40pt;
+	color: #FFEDBC;
+	margin-top: 5%;
+	text-align: center;
+}
+.text{
+		font-family: 'Pangolin', cursive;
+	font-size: 20pt;
+	color: #FFEDBC;
+	margin-top: 5%;
+	text-align: center;
+}
+.sub{
+	color: #FFEDBC;
+}
