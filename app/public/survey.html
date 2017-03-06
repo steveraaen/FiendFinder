@@ -4,15 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Fiend Finder</title>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Pangolin" rel="stylesheet">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
-  <script type="text/javascript" src = "https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.0.0/jquery-migrate.js"></script>
-  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
 </head>
 
 <body>
@@ -20,16 +17,17 @@
         <h1>Fiend Finder</h1>
     </div>
     <div>
-        <form><fieldset class = "ui-grid-a">
-            <div class="ui-corner-all ui-bar form-group form-control ui-block-a ">
-                <label for="name">Your Name</label>
-                <input type="text" class="form-control ui-bar" id="name" placeholder="What Is Your Name?">
-            </div>
-            <div class="ui-corner-all  form-group form-control ui-block-b">
-                <label for="exampleInputPassword1">Link a photo</label>
-                <input type="text" class="form-control ui-bar" id="photo" placeholder="Paste URL of Photo">
-            </div>
-          </fieldset>
+        <form>
+            <fieldset class="ui-grid-a">
+                <div class="ui-corner-all ui-bar form-group form-control ui-block-a ">
+                    <label for="name">Your Name</label>
+                    <input type="text" class="form-control ui-bar" id="name" value="blah" placeholder="What Is Your Name?">
+                </div>
+                <div class="ui-corner-all  form-group form-control ui-block-b">
+                    <label for="exampleInputPassword1">Link a photo</label>
+                    <input type="text" class="form-control ui-bar" id="photo" value="http://steveraaen.com/wp-content/uploads/2014/03/selfie1-e1395770364867.jpg" placeholder="Paste URL of Photo">
+                </div>
+            </fieldset>
             <fieldset data-role="controlgroup" class="ui-bar ui-corner-all q" id="res1" data-type="horizontal">
                 <div class="ui-grid-d">
                     <div class="ui-block-a"><strong>Disagree</strong></div>
@@ -373,10 +371,14 @@
             </fieldset>
         </form>
     </div>
+    <div id="winText"></div>
+    <div id="winphoto"></div>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+ -->
 <script type="text/javascript">
 $(document).ready(function() {
+
     var ans;
     var userInfo = [];
     var scores = [];
@@ -392,78 +394,63 @@ $(document).ready(function() {
         '1 being the beach and 5 being the mountains, where would you rather go in the summer?'
     ];
 
-
     for (i = 0; i < questions.length; i++) {
         var qText = $('<span>');
         $('#res' + i).append(questions[i])
     }
     $('#sub').on('click', function() {
+        console.log('clicked')
         var name = $('#name').val().trim();
         var photo = $('#photo').val().trim();
 
-    function MakeAnswerObj(n ,p, s){
+        function MakeAnswerObj(n, p, s) {
 
-        this.name = name;
-        this.photo = photo;
-        this.scores = scores
-    }
+            this.name = name;
+            this.photo = photo;
+            this.scores = scores
+        }
         var radios = $("input[type='radio']");
         var checked = radios.filter(':checked');
         for (i = 0; i < checked.length; i++) {
             scores.push(parseInt(checked[i].value));
         }
-            if (scores.length < 10){
-                alert("You've got to fill out all of the fields")
-            } else{
-                var answerObj = new MakeAnswerObj(name, photo, scores);
-            } 
-
-            jQuery.ajaxSettings.traditional = true;
-            $.ajax({
-                type: "POST",
-                url: "/api/fiends",
-                data: answerObj
-            }).then(function(data){
-
-            if (data == true){
+        if (scores.length < 10) {
+            alert("You've got to fill out all of the fields")
+        } else {
+            var answerObj = new MakeAnswerObj(name, photo, scores);
+        }
+        console.log('obj before  : ' + JSON.stringify(answerObj))
+        jQuery.ajaxSettings.traditional = true;
+        $.ajax({
+            type: "POST",
+            url: "/api/fiends",
+            data: answerObj
+        }).then(function(data) {
+            if (data == true) {
                 alert('Form Posted');
-            } if (data == false){
+            }
+            if (data == false) {
                 alert('Sorry, form not posted');
             }
+        }).then(function(err) {
+            if (err) throw err;
+            var currentUrl = window.location.origin;
+            $.ajax({               
+                url: currentUrl + "/api/match",
+                method: "GET"
+            }).then(function(data) {         
+/*                console.log('442 obj' + JSON.stringify(data));*/
+                console.log('442 str' + JSON.stringify(data));
 
-        });        
+            })
+        })
+/*        console.log('obj before  : ' + JSON.stringify(answerObj))*/
+        answerObj = {};
+        scores = [];
+/*        console.log('obj after  : ' + JSON.stringify(answerObj))*/
     });
-});
 
+});
 </script>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
