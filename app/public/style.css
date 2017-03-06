@@ -1,12 +1,12 @@
 .q {
-    margin-top: 1vh;
-    margin-bottom: 1vh;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
 .jumbo {
-    margin-top: 10vh;
-    margin-right: 10vw;
-    margin-left: 10vw;
-    height: 75vh;
+    margin-top: 10%;
+    margin-right: 10%;
+    margin-left: 10%;
+    height: 75%;
     background: #283048;
     background: -webkit-linear-gradient(to left, #283048, #859398);
     background: linear-gradient(to left, #283048, #859398);
@@ -14,6 +14,9 @@
 image{
 	height: 25%;
 	width: 25%;
+}
+form{
+	margin-top: 10px;
 }
 .pic{
 	margin-top: 30%;

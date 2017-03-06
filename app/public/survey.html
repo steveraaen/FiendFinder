@@ -21,9 +21,9 @@
     <div>
         <form>
             <fieldset class="ui-grid-a">
-                <div class="ui-corner-all ui-bar form-group form-control ui-block-a ">
+                <div class="ui-corner-all form-group form-control ui-block-a ">
                     <label for="name">Your Name</label>
-                    <input type="text" class="form-control ui-bar" id="name" value="blah" placeholder="What Is Your Name?">
+                    <input type="text" class="form-control" id="name" value="blah" placeholder="What Is Your Name?">
                 </div>
                 <div class="ui-corner-all  form-group form-control ui-block-b">
                     <label for="exampleInputPassword1">Link a photo</label>
@@ -376,6 +376,7 @@
         <div class="container">
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
 
     
       <!-- Modal content-->
@@ -385,10 +386,11 @@
           <h4 class="modal-title" id = "winText"></h4>
         </div>
         <div class="modal-body">
-          <p>Some text in the modal.</p>
+          <img id="winPhoto" alt = "pic">
         </div>
+        <div class="modal-footer"></div>
       </div>
-      
+   </div>   
 
   </div>
   
@@ -462,8 +464,10 @@ $(document).ready(function() {
 /*                console.log('442 obj' + JSON.stringify(data));*/
                 console.log('442 str' + JSON.stringify(data));
                 console.log('match data :' +(data[0].name));
+                console.log('match data :' +(data[0].photo));
                 $('#winText').html(data[0].name);
-                $("#myModal").modal()
+                $('#winPhoto').attr("src", data[0].photo)
+                $("#myModal").modal('toggle')
 
             })
         })
